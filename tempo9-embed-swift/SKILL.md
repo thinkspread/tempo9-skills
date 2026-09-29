@@ -14,14 +14,25 @@ that a server would have handled. This skill is those responsibilities.
 
 ## Packages
 
-The SDK exposes **one public library: `Tempo9`**. An app writes
-`import Tempo9` and gets `LocalSession` — chat, tool calls, vision, prefix
-cache. The engine binding and the C shim beneath it are deliberately
-internal: exporting them would make every symbol below the SDK a permanent
-API promise.
+The SDK exposes three libraries. An app writes `import Tempo9` and gets
+`LocalSession` — chat, tool calls, vision, prefix cache. **`VisionTowerKit`**
+(public since 1.1.0) runs the vision and audio towers: it is what turns an
+image or a sound into the `ImageEmbeddings` a `LocalSession` takes, so an
+app that shows the model pictures needs it. **`GGUFKit`** reads a `.gguf` —
+metadata, tensors, tokenizers — on Foundation alone. The engine binding and
+the C shim beneath them are deliberately internal: exporting them would make
+every symbol below the SDK a permanent API promise. The two facts an app does
+want from the engine, its build and the GEMM backend actually running, are
+`Tempo9.EngineInfo`.
 
 ```swift
-.package(url: "https://github.com/thinkspread/tempo9", from: "1.0.0")
+.package(url: "https://github.com/thinkspread/tempo9", from: "1.1.0")
+```
+
+```swift
+.product(name: "Tempo9", package: "tempo9"),
+.product(name: "VisionTowerKit", package: "tempo9"),  // image or audio input
+.product(name: "GGUFKit", package: "tempo9"),         // reading model files yourself
 ```
 
 ```swift
