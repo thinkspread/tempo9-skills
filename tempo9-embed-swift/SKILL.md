@@ -21,10 +21,8 @@ internal: exporting them would make every symbol below the SDK a permanent
 API promise.
 
 ```swift
-.package(url: "https://github.com/thinkspread/tempo9", branch: "main")
+.package(url: "https://github.com/thinkspread/tempo9", from: "1.0.0")
 ```
-
-(Pin a version once the first release is tagged.)
 
 ```swift
 import Tempo9
@@ -35,9 +33,11 @@ come from that one import. (They did not always: the three engine types are
 re-exposed by the SDK precisely because `stream(config:)` is public while its
 parameter type was not nameable from outside the package.)
 
-The engine is **not in the package source**. It ships as a binary with
-Tempo9's first release, which is not out yet: until then the package
-compiles, and an app that imports it cannot link.
+The engine is **not in the package source**. SwiftPM downloads it --
+`Tempo9Engine.xcframework`, from the GitHub release -- when the package
+resolves: there is nothing to build and no linker flag to add. It is
+licensed under the Tempo9 Engine License (ENGINE-LICENSE in the tempo9
+repository).
 
 ## Declare macOS 26, or Metal turns itself off
 

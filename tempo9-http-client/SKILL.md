@@ -14,6 +14,12 @@ measurements or hide failures if you assume otherwise.
 
 ## Start a server
 
+Install it once (Apple Silicon, macOS 26 or later):
+
+```bash
+brew install thinkspread/tap/tempo9
+```
+
 ```bash
 tempo9 --gguf /path/to/model.gguf --port 11435
 ```
