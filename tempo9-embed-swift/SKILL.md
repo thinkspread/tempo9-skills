@@ -46,8 +46,9 @@ the Metal runtime compiler finds the Metal 4 headers the engine's kernels use
 by that SDK version. Declared lower, the engine's tensor-API probe kernel
 fails to compile ("use of undeclared identifier 'mpp'"), the whole Metal
 backend switches itself off, and the engine runs on the CPU with one log
-line to show for it. Measured on an M5 Pro, 2026-09-29: Qwen3.5-9B Q4_K_S
-decoded at 26 tok/s that way, and at 83 tok/s with the platform declared.
+line to show for it. Measured on an M5 Pro, 2026-09-29, three runs of each,
+Qwen3.5-9B Q4_K_S: a 1,004-token prompt took 14 s to prefill that way against
+0.8 s with the platform declared, and decode ran at 23 tok/s against 52.
 
 ```swift
 platforms: [.macOS("26.0")],
